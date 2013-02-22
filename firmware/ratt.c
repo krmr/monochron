@@ -172,6 +172,9 @@ int main(void) {
     
    #ifdef AUTODIM
       autoDim(time_h, time_m);
+
+    // update sunrise and sunset from current day
+      setSun();
    #endif
 
     // check buttons to see if we have interaction stuff to deal with

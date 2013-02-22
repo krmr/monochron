@@ -211,6 +211,7 @@ void set_backlight(void);
 #ifdef AUTODIM
 void autoDim(uint8_t hour, uint8_t minute);
 void setBacklightAutoDim(void);
+void setSun(void);
 #ifdef AUTODIM_EEPROM
 void init_autodim_eeprom(void);
 void update_autodst_eeprom(uint8_t value);

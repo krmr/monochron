@@ -15,7 +15,7 @@ OPT = s
 
 # List C source files here. (C dependencies are automatically generated.)
 
-SRC = ratt.c config.c buttons.c anim.c util.c glcd.c ks0108.c i2c.c AdvancedFeatures.c
+SRC = ratt.c config.c buttons.c anim.c util.c glcd.c ks0108.c i2c.c AdvancedFeatures.c sun.c
 
 # List Assembler source files here.
 # Make them always end in a capital .S.  Files ending in a lowercase .s
@@ -85,7 +85,7 @@ LDFLAGS = -Wl,-Map=$(TARGET).map,--cref
 #LDFLAGS += -Wl,-u,vfprintf -lprintf_flt
 
 # -lm = math library
-#LDFLAGS += -lm
+LDFLAGS += -lm
 
 
 

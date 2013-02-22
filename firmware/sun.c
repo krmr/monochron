@@ -32,11 +32,16 @@ Hardware:	Any AVR with enough memory
 extern volatile uint8_t time_s, time_m, time_h;
 extern volatile uint8_t date_m, date_d, date_y;
 
+// variables for AutoDim from AdvancedFeatures.c
+extern volatile uint16_t autodim_day_time;
+extern volatile uint16_t autodim_night_time;
+
+
 #define LAT_RAD 48.053533*PY
 #define LNG_HOUR 10.881767/15
-#define TZ 2
+#define LOCAL_OFFSET 2
 
-uint16_t setSun(uint8_t rise){
+uint16_t getSun(uint8_t rise){
 
 /*!
  * Source:
@@ -82,10 +87,10 @@ time_t fall_time;
 #define zenith 90.833333333333
 
 uint16_t N1, N3, N;
-float t;
+float lngHour, t;
 float M, L, RA;
 float SinDec, CosDec, CosH;
-float H, T, UT;
+float H, T, UT, localT;
 
 /* 1. first calculate the day of the year */
 
@@ -155,8 +160,14 @@ float H, T, UT;
 
 /* 10. convert UT value to local time zone of latitude/longitude */
 
-	localT = UT + localOffset;
+	localT = UT + LOCAL_OFFSET;
 
 	return int(60.0*localT);
+}
+
+void setSun(void) {
+//	set times to switch dimming on and off to sunrise and sunset
+	autodim_day_time = getSun(1);
+	autodim_night_time = getSun(0);
 }
 /*@}*/
