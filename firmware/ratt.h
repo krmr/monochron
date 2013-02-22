@@ -8,6 +8,20 @@
 //BACKLIGHT_ADJUST - Allows software control of backlight, assuming you mounted your 100ohm resistor in R2'.
 #define BACKLIGHT_ADJUST 1
 
+//Advanced Software Options
+//Note AutoDim will only work if the backlight is adjustable.
+#ifdef BACKLIGHT_ADJUST
+#define AUTODIM
+
+//This option allows AutoDim to save it's settings. It will only work if AutoDim is enabled. Uncomment to enable.
+//Warning: Enabling this option uses shared memory. 
+//         Before enabling it, ensure it does not conflict with any other memory usage.
+//Note: AutoDim will work without the eeprom usage. It just will not keep it's settings in the event of a reset.s
+#ifdef AUTODIM
+#define AUTODIM_EEPROM
+#endif
+#endif
+
 // This is a tradeoff between sluggish and too fast to see
 #define MAX_BALL_SPEED 5 // note this is in vector arith.
 #define ball_radius 2 // in pixels
@@ -169,6 +183,12 @@
 #define EE_REGION 5
 #define EE_TIME_FORMAT 6
 #define EE_SNOOZE 7
+#ifdef AUTODIM_EEPROM
+#define EE_AUTODIM_DAY_TIME 8 //Note this variable is 2 bytes.
+#define EE_AUTODIM_NIGHT_TIME 10 //Note this variable is 2 bytes.
+#define EE_AUTODIM_DAY_BRIGHT 12
+#define EE_AUTODIM_NIGHT_BRIGHT 13
+#endif
 
 /*************************** FUNCTION PROTOTYPES */
 
@@ -188,8 +208,22 @@ void set_time(void);
 void set_region(void);
 void set_date(void);
 void set_backlight(void);
+#ifdef AUTODIM
+void autoDim(uint8_t hour, uint8_t minute);
+void setBacklightAutoDim(void);
+#ifdef AUTODIM_EEPROM
+void init_autodim_eeprom(void);
+void update_autodst_eeprom(uint8_t value);
+uint32_t secondsIntoYear(uint8_t day, uint8_t month, uint8_t year);
+uint32_t dstCalculate(uint8_t hour, uint8_t dotw, uint8_t n, uint8_t month, uint8_t year);
+void autodst(uint8_t* rule);
+#endif
+#endif
 void print_timehour(uint8_t h, uint8_t inverted);
 void print_alarmhour(uint8_t h, uint8_t inverted);
+void print_date(uint8_t month, uint8_t day, uint8_t year, uint8_t mode);
+void print_region_setting(uint8_t inverted);
+
 void display_menu(void);
 void drawArrow(uint8_t x, uint8_t y, uint8_t l);
 void setalarmstate(void);
@@ -202,10 +236,12 @@ uint8_t calculate_keepout(float theball_x, float theball_y, float theball_dx, fl
 
 void drawbigdigit(uint8_t x, uint8_t y, uint8_t n, uint8_t inverted);
 void drawmidline(uint8_t inverted);
+void draw_score(uint8_t redraw_digits, uint8_t inverted);
+void drawbigfont(uint8_t x, uint8_t y, uint8_t n, uint8_t inverted);
 
 float random_angle_rads(void);
 
-void init_crand();
+void init_crand(void);
 uint8_t dotw(uint8_t mon, uint8_t day, uint8_t yr);
 
 uint8_t i2bcd(uint8_t x);
