@@ -1,0 +1,8 @@
+"master"
+direct clone of original firmware
+
+"AutoDim"
+adds the AutoDim code from https://github.com/samckittrick/Scotts_Clocks to the standard RATT animation
+
+"SunDim"
+experimental work to calculate AutoDim times from sunrise and sunset
