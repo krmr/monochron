@@ -119,7 +119,7 @@ void setBacklightAutoDim()
    //time 1
    glcdSetAddress(MENU_INDENT, 1);
    glcdPutStr("Set Time 1:", NORMAL);
-   glcdSetAddress(GLCD_XPIXELS - 36, 1);
+   glcdSetAddress(GLCD_XPIXELS - 42, 1);
    hour = autodim_night_time/60;
    minute = autodim_night_time%60;
    print_timehour(hour, NORMAL);
@@ -147,7 +147,7 @@ void setBacklightAutoDim()
    //time 2
    glcdSetAddress(MENU_INDENT, 4);
    glcdPutStr("Set Time 2: ", NORMAL);
-   glcdSetAddress(GLCD_XPIXELS - 36, 4);
+   glcdSetAddress(GLCD_XPIXELS - 42, 4);
    hour = autodim_day_time/60;
    minute = autodim_day_time%60;
    print_timehour(hour, NORMAL);
@@ -281,7 +281,7 @@ void setBacklightAutoDim()
             //Day time
             case AUTODIM_DAY_TIME:
                mode = AUTODIM_SET_DAY_H;
-               glcdSetAddress(GLCD_XPIXELS - 36, 4);
+               glcdSetAddress(GLCD_XPIXELS - 42, 4);
                print_timehour(autodim_day_time/60, INVERTED);
                autoDim(time_h, time_m);
                glcdSetAddress(0, 6);
@@ -289,14 +289,14 @@ void setBacklightAutoDim()
                break;
             case AUTODIM_SET_DAY_H:
                mode = AUTODIM_SET_DAY_M;
-               glcdSetAddress(GLCD_XPIXELS - 36, 4);
+               glcdSetAddress(GLCD_XPIXELS - 42, 4);
                print_timehour(autodim_day_time/60, NORMAL);
-               glcdSetAddress(GLCD_XPIXELS - 18, 4);
+               glcdSetAddress(GLCD_XPIXELS - 12, 4);
                printnumber(autodim_day_time%60, INVERTED);
                break;
             case AUTODIM_SET_DAY_M:
                mode = AUTODIM_DAY_TIME;
-               glcdSetAddress(GLCD_XPIXELS - 18, 4);
+               glcdSetAddress(GLCD_XPIXELS - 12, 4);
                printnumber(autodim_day_time%60, NORMAL);
                glcdSetAddress(0, 6);
                glcdPutStr("Press Set to set ", NORMAL);
@@ -309,7 +309,7 @@ void setBacklightAutoDim()
             //Night Time
             case AUTODIM_NIGHT_TIME:
                mode = AUTODIM_SET_NIGHT_H;
-               glcdSetAddress(GLCD_XPIXELS - 36, 1);
+               glcdSetAddress(GLCD_XPIXELS - 42, 1);
                print_timehour(autodim_night_time/60, INVERTED);
                autoDim(time_h, time_m);
                glcdSetAddress(0, 6);
@@ -317,14 +317,14 @@ void setBacklightAutoDim()
                break;
             case AUTODIM_SET_NIGHT_H:
                mode = AUTODIM_SET_NIGHT_M;
-               glcdSetAddress(GLCD_XPIXELS - 36, 1);
+               glcdSetAddress(GLCD_XPIXELS - 42, 1);
                print_timehour(autodim_night_time/60, NORMAL);
-               glcdSetAddress(GLCD_XPIXELS - 18, 1);
+               glcdSetAddress(GLCD_XPIXELS - 12, 1);
                printnumber(autodim_night_time%60, INVERTED);
                break;
             case AUTODIM_SET_NIGHT_M:
                mode = AUTODIM_NIGHT_TIME;
-               glcdSetAddress(GLCD_XPIXELS - 18, 1);
+               glcdSetAddress(GLCD_XPIXELS - 12, 1);
                printnumber(autodim_night_time%60, NORMAL);
                glcdSetAddress(0, 6);
                glcdPutStr("Press Set to set ", NORMAL);
@@ -379,7 +379,7 @@ void setBacklightAutoDim()
                autodim_day_time = 0 + autodim_day_time%60;
             }
                
-            glcdSetAddress(GLCD_XPIXELS-36, 4);
+            glcdSetAddress(GLCD_XPIXELS-42, 4);
             print_timehour(autodim_day_time/60, INVERTED);
             
             if(time_format == TIME_12H)
@@ -407,7 +407,7 @@ void setBacklightAutoDim()
                autodim_night_time = 0 + autodim_night_time%60;
             }
             
-            glcdSetAddress(GLCD_XPIXELS-36, 1);
+            glcdSetAddress(GLCD_XPIXELS-42, 1);
             print_timehour(autodim_night_time/60, INVERTED);
             
             if(time_format == TIME_12H)
@@ -435,7 +435,7 @@ void setBacklightAutoDim()
             }
             autodim_day_time++;
             
-            glcdSetAddress(GLCD_XPIXELS-18, 4);
+            glcdSetAddress(GLCD_XPIXELS-12, 4);
             printnumber(autodim_day_time%60, INVERTED);
             if(pressed)
                _delay_ms(200);
@@ -450,7 +450,7 @@ void setBacklightAutoDim()
             }
             autodim_night_time++;
             
-            glcdSetAddress(GLCD_XPIXELS-18, 1);
+            glcdSetAddress(GLCD_XPIXELS-12, 1);
             printnumber(autodim_night_time%60, INVERTED);
             if(pressed)
                _delay_ms(200);
